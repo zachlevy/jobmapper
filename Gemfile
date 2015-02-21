@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # front end
 gem 'bootstrap-sass'
+gem 'gmaps4rails'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
