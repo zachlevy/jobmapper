@@ -1,9 +1,62 @@
-<h1>Jobs Map</h1>
-    
-<div style='width: 800px;'>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+<div class="row">
+  <div class="col-xs-3">
+    <h3>Filter Jobs</h3>
+    <hr/ >
+    <form class="filter">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Keyword">
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            Category
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            Category
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            Category
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+            Category default
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+            Category
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <select class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="col-xs-9">
+    <div class="map-wrap">
+      <div id="map"></div>
+    </div>
+  </div>
 </div>
-
 <%= javascript_include_tag "//maps.google.com/maps/api/js?v=3.13&amp;sensor=false&amp;libraries=geometry" %>
 <%= javascript_include_tag "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" %>
 <script>

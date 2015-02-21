@@ -4,16 +4,13 @@ class JobsController < ApplicationController
 
   def map
     @here = Geokit::Geocoders::MultiGeocoder.geocode(ip())
-    @here.lat = @here.lat ? @here.lat : 43.6525
-    @here.lng = @here.lng ? @here.lng : -79.368599
-    puts "==== START currentLocation ===="
-    puts @here.inspect
-    puts "==== END currentLocation ===="
+    @here.lat = @here.lat || 43.6525
+    @here.lng = @here.lng || -79.368599
     @jobs = Job.all
     @hash = Gmaps4rails.build_markers(@jobs) do |job, marker|
       marker.lat job.latitude
       marker.lng job.longitude
-      marker.infowindow job.title
+      marker.infowindow '<a href="http://google.com/">' + job.title + '</a><br />Order Now'
     end
   end
 
