@@ -8,6 +8,16 @@ class JobsController < ApplicationController
     @here.lng = @here.lng || -79.368599
     @jobs = Job.all
     @hash = Gmaps4rails.build_markers(@jobs) do |job, marker|
+      if job.latitude
+        # do nothing
+      elsif job.address
+        # get coords from the address
+        coords = address_coords job.address
+        next unless coords
+        job.latitude = coords.lat
+        job.longitude = coords.lng
+      end
+      # create the marker
       marker.lat job.latitude
       marker.lng job.longitude
       marker.infowindow '<a href="http://google.com/">' + job.title + '</a><br />Order Now'
