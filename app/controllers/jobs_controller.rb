@@ -3,9 +3,11 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def map
-    here = Geokit::Geocoders::MultiGeocoder.geocode(ip())
+    @here = Geokit::Geocoders::MultiGeocoder.geocode(ip())
+    @here.lat = @here.lat ? @here.lat : 43.6525
+    @here.lng = @here.lng ? @here.lng : -79.368599
     puts "==== START currentLocation ===="
-    puts here.inspect
+    puts @here.inspect
     puts "==== END currentLocation ===="
     @jobs = Job.all
     @hash = Gmaps4rails.build_markers(@jobs) do |job, marker|
@@ -13,7 +15,6 @@ class JobsController < ApplicationController
       marker.lng job.longitude
       marker.infowindow job.title
     end
-    puts @hash
   end
 
   # GET /jobs
