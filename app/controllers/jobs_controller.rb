@@ -3,8 +3,8 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def markers
-    @markers = get_markers []
-
+    puts params[:markers]
+    @markers = get_markers params[:markers]
     render json: @markers
   end
 

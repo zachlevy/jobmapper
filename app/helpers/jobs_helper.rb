@@ -13,14 +13,32 @@ module JobsHelper
     here
   end
 
+  def get_city gc_city_id
+
+  end
+
   # takes in an array of categories
   def get_markers categories
     if categories.any?
       # unimplemented
-      jobs = Job.all
+      parse_jobs = Job.all
     else
-      jobs = Job.all
+      parse_jobs = Parse::Query.new("Job").tap do |q|
+        q.limit = 100
+      end.get
+      jobs = []
+      parse_jobs.each do |job|
+        location = Location.find(job['gc_city_id'])
+        puts location
+        address = job['employer'] + ", " + location.name
+        puts address
+        j = Job.new(title: job['title'], address: address)
+        jobs << j
+      end
+      jobs
+      #jobs = Job.all
     end
+
     markers = Gmaps4rails.build_markers(jobs) do |job, marker|
       if job.latitude
         # do nothing

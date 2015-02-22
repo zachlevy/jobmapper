@@ -62,7 +62,7 @@
 <script>
   $( document ).ready(function () {
     // markers
-    startMarkers = <%=raw @hash.to_json %>;
+    startMarkers = <%=raw @markers.to_json %>;
     buildMap(startMarkers);
 
     // wait for change

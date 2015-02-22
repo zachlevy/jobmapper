@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do
       get 'map' => 'jobs#map'
-      get 'markers' => 'jobs#markers'
+      post 'markers' => 'jobs#markers'
     end
   end
 
