@@ -9,7 +9,6 @@ class JobsController < ApplicationController
   end
 
   def map
-    #puts locations
     # current location
     @here = default_location
     @markers = get_markers []
