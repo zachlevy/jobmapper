@@ -8,6 +8,10 @@ class JobsController < ApplicationController
   end
 
   def map
+    locations_query = Parse::Query.new("Location")
+    locations_query.eq("objectId", "T7xacCGX9b")
+    locations = locations_query.get
+    puts locations
     # current location
     @here = default_location
     @markers = get_markers []

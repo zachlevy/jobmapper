@@ -7,6 +7,7 @@ gem 'gmaps4rails'
 # back end
 gem 'geokit'
 gem 'geokit-rails'
+gem "parse-ruby-client"
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
