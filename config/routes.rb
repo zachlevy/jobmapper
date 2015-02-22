@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :locations
+
   resources :jobs do
     collection do
       get 'map' => 'jobs#map'
