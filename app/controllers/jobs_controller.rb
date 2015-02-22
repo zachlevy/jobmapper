@@ -9,8 +9,10 @@ class JobsController < ApplicationController
   end
 
   def markers
-    cats = params[:categories].nil? ? [] : params[:categories]
-    @markers = get_markers cats
+    markets = params[:markets].nil? ? [] : params[:markets]
+    locations = params[:locations].nil? ? [] : params[:locations]
+
+    @markers = get_markers markets, locations
     render json: @markers
   end
 

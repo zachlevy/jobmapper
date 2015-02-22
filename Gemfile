@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'bootstrap-sass'
 gem 'gmaps4rails'
 gem 'twitter-typeahead-rails'
+gem "font-awesome-rails"
 
 # back end
 gem 'geokit'

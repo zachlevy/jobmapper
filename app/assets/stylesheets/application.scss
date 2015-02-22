@@ -14,12 +14,23 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "jobs";
+@import "font-awesome";
 
+.spinner-wrap {
+  margin: 0 auto;
+  width: 20%;
+  margin-top: 300px;
+  .fa-spinner {
+    font-size: 5em;
+    text-align: center;
+  }
+}
 .map-wrap {
-    #map {
-        width: 100%;
-        height: 700px;
-    }
+  #map {
+      width: 100%;
+      height: 700px;
+  }
 }
 
 span.twitter-typeahead .tt-dropdown-menu {
