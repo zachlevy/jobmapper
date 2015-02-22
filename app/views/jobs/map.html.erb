@@ -90,10 +90,10 @@
   });
 
   // build map
-  function buildMap (startMarkers) {
+  function buildMap (markers) {
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(startMarkers);
+      markers = handler.addMarkers(markers);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
       handler.getMap().setCenter(new google.maps.LatLng(<%= @here.lat %>, <%= @here.lng %>));

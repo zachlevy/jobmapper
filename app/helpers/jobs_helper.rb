@@ -24,7 +24,9 @@ module JobsHelper
     puts locations
 
     parse_jobs = Parse::Query.new("Job").tap do |q|
-      q.limit = 2
+      q.limit = 100
+      q.exists("latitude", true)
+      q.exists("longitude", true)
       if markets.any?
         q.value_in("nocId", markets)
       end
@@ -35,15 +37,21 @@ module JobsHelper
 
     jobs = []
     parse_jobs.each do |job|
-      location = Location.find(job['gc_city_id'])
-      address = "#{job['employer']}, #{job['postalCode'].to_s}, #{location.name}"
-      puts job['datePosted']
-      j = Job.new(title: job['title'], address: address, link: job['jobUrl'], employer: job['employer'])
+      j = Job.new(title: job['title'], link: job['jobUrl'], employer: job['employer'])
+      if job['latitude'].nil? && job['longitude'].nil?
+        location = Location.find(job['gc_city_id'])
+        address = "#{job['employer']}, #{job['postalCode'].to_s}, #{location.name}"
+        puts job['datePosted']
+        j.address = address
+      else
+        j.latitude = job['latitude']
+        j.longitude = job['longitude'] 
+      end
       jobs << j
     end
 
     markers = Gmaps4rails.build_markers(jobs) do |job, marker|
-      if job.latitude
+      if job.latitude && job.latitude
         # do nothing
       elsif job.address
         # get coords from the address
