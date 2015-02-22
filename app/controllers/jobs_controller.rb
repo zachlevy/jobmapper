@@ -4,14 +4,12 @@ class JobsController < ApplicationController
 
   def markers
     @markers = get_markers []
+
     render json: @markers
   end
 
   def map
-    locations_query = Parse::Query.new("Location")
-    locations_query.eq("objectId", "T7xacCGX9b")
-    locations = locations_query.get
-    puts locations
+    #puts locations
     # current location
     @here = default_location
     @markers = get_markers []
