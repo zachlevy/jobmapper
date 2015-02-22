@@ -27,4 +27,30 @@ module ApplicationHelper
       m.save
     end
   end
+
+  def post_parse_job_locations
+    # Job check if address field
+    # if there is, get latitude and longitude
+    # post to parse
+    jobs = Parse::Query.new("Job").tap do |q|
+      q.limit = 1000
+      q.exists("address", true)
+      q.exists("latitude", false)
+      q.exists("longitude", false)
+    end.get
+    jobs.each do |job|
+      coords = address_coords job['address']
+      if coords != false
+        job['latitude'] = coords.lat
+        job['longitude'] = coords.lng
+        job.save
+      end
+    end
+  end
+
+  # not dry
+  def address_coords address
+    loc = Geokit::Geocoders::MultiGeocoder.geocode(address)
+    loc.success ? loc : false
+  end
 end
