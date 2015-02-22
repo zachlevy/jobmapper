@@ -7,8 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Job.create!([
-  {latitude: "43.655987", longitude: "-79.379443", title: "DMZ Job", posted_at: nil, address: nil},
-  {latitude: nil, longitude: nil, title: "Awesome Job", posted_at: nil, address: "55 Maitland St, Toronto, ON"}
+  {latitude: "43.655987", longitude: "-79.379443", title: "DMZ Job", posted_at: nil, address: nil, link: nil, employer: nil},
+  {latitude: nil, longitude: nil, title: "Awesome Job", posted_at: nil, address: "55 Maitland St, Toronto, ON", link: nil, employer: nil}
 ])
 Location.create!([
   {gov_id: 23347, name: "King City, ON"},
@@ -355,7 +355,8 @@ Location.create!([
   {gov_id: 23018, name: "Spaniard's Bay, NL"},
   {gov_id: 39074, name: "Carbonear, NL"},
   {gov_id: 27525, name: "North River, NL"},
-  {gov_id: 28083, name: "Makinsons, NL"}
+  {gov_id: 28083, name: "Makinsons, NL"},
+  {gov_id: 22310, name: "Calgary, AB"}
 ])
 Market.create!([
   {noc_id: 11, name: " Legislators"},
