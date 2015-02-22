@@ -3,8 +3,13 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   protect_from_forgery with: :null_session
 
+  def locations
+    @locations = Location.all
+    render json: @locations
+  end
+
   def markers
-    cats = [] if params[:categories].nil? else params[:categories]
+    cats = params[:categories].nil? ? [] : params[:categories]
     @markers = get_markers cats
     render json: @markers
   end

@@ -3,8 +3,8 @@
     <h3>Filter Jobs</h3>
     <hr/ >
     <form class="filter">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Keyword">
+      <div class="form-group example-numbers">
+        <input type="text" class="form-control typeahead" placeholder="Keyword">
       </div>
       <div class="form-group">
         <div class="checkbox">
@@ -63,6 +63,7 @@
   $( document ).ready(function () {
     // markers
     getMarkers([], false)
+    typeahead();
 
     // wait for change
     $('#dispToggle').on('change', function(){
@@ -96,6 +97,27 @@
       },
       dataType: "json",
       async:lazy
+    });
+  }
+
+  // typeahead
+  function typeahead () {
+    console.log("Launch Typeahead");
+    // instantiate the bloodhound suggestion engine
+    var numbers = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: '/jobs/locations',
+      remote: '/jobs/locations'
+    });
+
+    // initialize the bloodhound suggestion engine
+    numbers.initialize();
+
+    // instantiate the typeahead UI
+    $('.example-numbers .typeahead').typeahead(null, {
+      displayKey: 'name',
+      source: numbers.ttAdapter()
     });
   }
 </script>

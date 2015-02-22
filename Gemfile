@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # front end
 gem 'bootstrap-sass'
 gem 'gmaps4rails'
+gem 'twitter-typeahead-rails'
 
 # back end
 gem 'geokit'

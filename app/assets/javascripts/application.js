@@ -16,4 +16,6 @@
 //= require turbolinks
 //= require underscore
 //= require gmaps/google
+//= require twitter/typeahead.min
 //= require_tree .
+
