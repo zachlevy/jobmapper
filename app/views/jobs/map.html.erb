@@ -62,24 +62,13 @@
 <script>
   $( document ).ready(function () {
     // markers
-    startMarkers = <%=raw @markers.to_json %>;
-    buildMap(startMarkers);
+    getMarkers([], false)
 
     // wait for change
     $('#dispToggle').on('change', function(){
       console.log("DispToggle Ticked");
-      // get new markers
-      var differentMarkers = [{
-        "lat":"43.655987",
-        "lng":"-79.379443",
-        "infowindow":"\u003ca href=\"http://google.com/\"\u003eDMZ Job\u003c/a\u003e\u003cbr /\u003eDont Order Now"
-      }, {
-        "lat":"43.6642168",
-        "lng":"-79.3815091",
-        "infowindow":"\u003ca href=\"http://google.com/\"\u003eAwesome Job\u003c/a\u003e\u003cbr /\u003eDont Order Now"
-      }]
       // build a new map
-      buildMap(differentMarkers);
+      getMarkers(["accounting"], true);
     });
   });
 
@@ -92,6 +81,21 @@
       handler.fitMapToBounds();
       handler.getMap().setCenter(new google.maps.LatLng(<%= @here.lat %>, <%= @here.lng %>));
       handler.getMap().setZoom(6);
+    });
+  }
+
+  // get markers
+  function getMarkers (categories, lazy) {
+    $.ajax({
+      type: 'POST',
+      url: '/jobs/markers',
+      data: {"categories" : categories},
+      success: function (result) {
+        console.log("Got new Jobs");
+        buildMap(result);
+      },
+      dataType: "json",
+      async:lazy
     });
   }
 </script>

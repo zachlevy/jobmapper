@@ -14,7 +14,7 @@ module JobsHelper
   end
 
   def get_city gc_city_id
-
+    return Location.find(gc_city_id)
   end
 
   # takes in an array of categories
@@ -24,19 +24,17 @@ module JobsHelper
       parse_jobs = Job.all
     else
       parse_jobs = Parse::Query.new("Job").tap do |q|
-        q.limit = 100
+        q.limit = 50
       end.get
       jobs = []
       parse_jobs.each do |job|
         location = Location.find(job['gc_city_id'])
-        puts location
-        address = job['employer'] + ", " + location.name
-        puts address
-        j = Job.new(title: job['title'], address: address)
+        address = "#{job['employer']}, #{job['postalCode'].to_s}, #{location.name}"
+        puts job['datePosted']
+        j = Job.new(title: job['title'], address: address, link: job['jobUrl'], employer: job['employer'])
         jobs << j
       end
       jobs
-      #jobs = Job.all
     end
 
     markers = Gmaps4rails.build_markers(jobs) do |job, marker|
@@ -52,7 +50,7 @@ module JobsHelper
       # create the marker
       marker.lat job.latitude
       marker.lng job.longitude
-      marker.infowindow '<a href="http://google.com/">' + job.title + '</a><br />Order Now'
+      marker.infowindow "<a href=\"#{job.link}\" target=\"_blank\">#{job.title}</a><br/>#{job.employer}<br />Posted: #{job.posted_at}"
     end
     markers
   end

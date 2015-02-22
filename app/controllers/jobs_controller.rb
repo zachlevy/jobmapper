@@ -1,17 +1,17 @@
 class JobsController < ApplicationController
   include JobsHelper
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery with: :null_session
 
   def markers
-    puts params[:markers]
-    @markers = get_markers params[:markers]
+    cats = [] if params[:categories].nil? else params[:categories]
+    @markers = get_markers cats
     render json: @markers
   end
 
   def map
     # current location
     @here = default_location
-    @markers = get_markers []
   end
 
   # GET /jobs
