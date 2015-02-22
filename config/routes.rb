@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :markets
+
   resources :locations
 
   resources :jobs do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222014258) do
+ActiveRecord::Schema.define(version: 20150222020110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 20150222014258) do
   end
 
   create_table "locations", primary_key: "gov_id", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "markets", primary_key: "noc_id", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
