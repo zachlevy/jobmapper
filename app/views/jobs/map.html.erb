@@ -9,7 +9,7 @@
       <div class="form-group">
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="">
+            <input id="dispToggle" type="checkbox" value="">
             Category
           </label>
         </div>
@@ -61,13 +61,37 @@
 <%= javascript_include_tag "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" %>
 <script>
   $( document ).ready(function () {
+    // markers
+    startMarkers = <%=raw @hash.to_json %>;
+    buildMap(startMarkers);
+
+    // wait for change
+    $('#dispToggle').on('change', function(){
+      console.log("DispToggle Ticked");
+      // get new markers
+      var differentMarkers = [{
+        "lat":"43.655987",
+        "lng":"-79.379443",
+        "infowindow":"\u003ca href=\"http://google.com/\"\u003eDMZ Job\u003c/a\u003e\u003cbr /\u003eDont Order Now"
+      }, {
+        "lat":"43.6642168",
+        "lng":"-79.3815091",
+        "infowindow":"\u003ca href=\"http://google.com/\"\u003eAwesome Job\u003c/a\u003e\u003cbr /\u003eDont Order Now"
+      }]
+      // build a new map
+      buildMap(differentMarkers);
+    });
+  });
+
+  // build map
+  function buildMap (startMarkers) {
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(<%=raw @hash.to_json %>);
+      markers = handler.addMarkers(startMarkers);
       handler.bounds.extendWith(markers);
       handler.fitMapToBounds();
       handler.getMap().setCenter(new google.maps.LatLng(<%= @here.lat %>, <%= @here.lng %>));
       handler.getMap().setZoom(6);
     });
-  });
+  }
 </script>
